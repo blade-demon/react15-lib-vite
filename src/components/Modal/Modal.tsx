@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import styles from './Modal.module.css';
 
 export interface ModalProps {
+  visible: boolean;
   title: string;
-  content: React.ReactNode;
+  children?: React.ReactNode;
   onClose?: () => void;
 }
 
@@ -43,6 +44,7 @@ export class Modal extends Component<ModalProps, ModalState> {
       if (this.props.onClose) {
         this.props.onClose();
       }
+      this.setState({ isExiting: false });
     }, this.animationDuration);
   };
 
@@ -59,8 +61,10 @@ export class Modal extends Component<ModalProps, ModalState> {
   };
 
   render() {
-    const { title, content } = this.props;
+    const { visible, title, children } = this.props;
     const { isExiting } = this.state;
+
+    if (!visible && !isExiting) return null;
 
     const overlayClassName = `${styles.modalOverlay} ${isExiting ? styles.exit : styles.enter}`;
     const containerClassName = `${styles.modalContainer} ${isExiting ? styles.exit : styles.enter}`;
@@ -87,7 +91,7 @@ export class Modal extends Component<ModalProps, ModalState> {
             </button>
           </div>
           <div className={styles.modalContent}>
-            {content}
+            {children}
           </div>
         </div>
       </div>
