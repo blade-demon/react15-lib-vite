@@ -12,8 +12,7 @@
   "scripts": {
     "dev": "vite --config vite.dev.config.mjs",
     "build": "vite build --config vite.config.mjs",
-    "types": "tsc --emitDeclarationOnly",
-    "preview": "vite preview"
+    "types": "tsc --emitDeclarationOnly"
   },
   "peerDependencies": {
     "react": "^15.0.0",
